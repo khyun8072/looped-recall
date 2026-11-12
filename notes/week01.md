@@ -1,26 +1,26 @@
-# Week 1
+# 1주차
 
-## Paper: What Makes Recurrence Effective in Looped Language Models?
+## 논문: What Makes Recurrence Effective in Looped Language Models?
 
-- arXiv: https://arxiv.org/abs/2609.36636 (SphereLab technical report, under review, 2026-09)
+- arXiv: https://arxiv.org/abs/2609.36636 (SphereLab technical report, 심사 중, 2026-09)
 
-### Questions to answer
+### 읽을 때 확인할 것
 
-1. How did they measure the knowledge drop? (task, generation vs multiple choice)
-2. How far do they explain the cause? Any layer- or component-level (attention vs FFN) analysis?
-3. Trained from scratch, or converted from a pretrained model?
+1. 지식 성능이 떨어지는 것을 어떻게 쟀나? (과제, 그냥 답하기와 객관식 중 무엇)
+2. 원인을 어디까지 설명했나? 층이나 부품(attention, FFN) 단위 분석이 있나?
+3. 처음부터 학습했나, 학습된 모델을 바꿨나?
 
-### Answers
-
--
-
-### Does this change our research question?
+### 답
 
 -
 
-## Overlap check (abstract and figures only)
+### 우리 연구 질문이 바뀌는가?
 
-| Paper | Overlaps? | Note |
+-
+
+## 최신 논문 겹침 확인 (초록과 그림만)
+
+| 논문 | 겹치는가 | 메모 |
 |---|---|---|
 | [UpLoop](https://arxiv.org/abs/2610.25004) | | |
 | [Ouro](https://arxiv.org/abs/2510.25741) | | |
@@ -28,6 +28,6 @@
 | [Closing the Loop](https://arxiv.org/abs/2610.00673) | | |
 | [The Benchmark Illusion](https://arxiv.org/abs/2606.17609) | | |
 
-## Experiment log
+## 실험 기록
 
-- Parent model:
+- 부모 모델:

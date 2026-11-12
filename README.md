@@ -1,42 +1,42 @@
 # looped-recall
 
-**When a pretrained small LM is folded into a looped (recursive) model, does factual recall break in attention or in the FFN?**
+**학습된 작은 언어모델을 looped(재귀) 모델로 접으면, 사실 회상은 attention에서 끊기는가, FFN에서 끊기는가?**
 
-Looped language models reuse the same layers several times, adding depth without adding parameters. Prior work reports that looping helps reasoning but hurts knowledge-heavy tasks. This project asks *why*, at the component level.
+looped 언어모델은 같은 층을 여러 번 반복해 써서, 파라미터를 늘리지 않고 깊이를 늘립니다. 기존 연구는 반복이 추론에는 도움이 되지만 지식이 필요한 과제에서는 성능을 떨어뜨린다고 보고합니다. 이 프로젝트는 그 이유를 부품 단위로 묻습니다.
 
-## Research question
+## 연구 질문
 
-Looping a pretrained model lowers its factual recall. Is that because
+학습된 모델을 looped로 접으면 사실 회상(외운 사실을 질문받고 꺼내 말하는 능력)이 떨어집니다. 그 이유가 다음 중 무엇인지 가립니다.
 
-- **the knowledge is gone** (the weights that stored it were overwritten), or
-- **the knowledge is still there but no longer reachable** (the circuit that retrieves it was damaged)?
+- **지워짐:** 지식을 저장하던 가중치가 덮어써져 지식 자체가 사라졌다.
+- **밀림:** 지식은 남아 있는데, 그것을 꺼내는 회로가 망가졌다.
 
-## Approach
+## 접근 방법
 
-1. **Probe set.** Collect facts the parent model actually answers correctly (from public datasets such as CounterFact, PopQA, LAMA). Ask each fact several ways: free generation, multiple choice with same-type distractors, one-shot, and with the answer given in context. The gap between generation and multiple choice separates *erased* from *demoted* knowledge.
-2. **Component-wise folding.** Fold the middle layers of the same parent in four ways:
-   - share attention only (FFN kept per layer, so stored knowledge is preserved by construction)
-   - share FFN only
-   - concatenate the FFNs into one wide FFN reused across loops with a loop-index gate
-   - share everything
-3. **Recovery and analysis.** Short recovery training without the probe facts, then trace where recall fails.
-4. **Mechanism.** Per-loop low-rank adapters placed only on attention or on the FFN input, compared against layer-wise LoRA at equal parameter budget.
+1. **사실 회상 시험지.** 공개 데이터셋(CounterFact, PopQA, LAMA)에서 부모 모델이 실제로 맞히는 사실만 모읍니다. 한 사실을 여러 방식으로 묻습니다. 그냥 답하게 하기, 같은 종류의 오답을 섞은 객관식, 예시 하나 주기, 정답을 입력에 넣어 주기입니다. 그냥 답할 때와 객관식의 점수 차이로 「지워짐」과 「밀림」을 구분합니다.
+2. **부품별로 접기.** 같은 부모 모델의 중간 층을 네 가지 방식으로 접습니다.
+   - attention만 공유: FFN은 층마다 그대로 두므로 저장된 지식이 구조적으로 보존됩니다.
+   - FFN만 공유
+   - 여러 층의 FFN을 넓게 이어 붙이고, 반복 회차 게이트로 나눠 쓰기
+   - 전부 공유
+3. **복구 학습과 분석.** 시험지 사실을 뺀 데이터로 짧게 학습한 뒤, 회상이 어디서 끊기는지 추적합니다.
+4. **제안 구조.** 반복 회차마다 작은 어댑터를 attention 또는 FFN 입력 쪽에만 답니다. 같은 파라미터 수의 층별 LoRA와 비교합니다.
 
-## Plan
+## 계획
 
-A 10-week plan with weekly goals, deliverables, and done criteria is in [ROADMAP.md](ROADMAP.md) (Korean). Week 5 and week 8 are go/no-go points.
+10주 계획과 주차별 목표, 결과물, 완료 기준은 [ROADMAP.md](ROADMAP.md)에 있습니다. 5주차와 8주차에 계속할지 판단합니다.
 
-## Repository layout
+## 폴더 구성
 
-- `ROADMAP.md` why this project exists and weekly goals
-- `notes/` weekly reading and experiment notes
+- `ROADMAP.md`: 왜 하는지와 주차별 목표
+- `notes/`: 주차별 논문 정리와 실험 기록
 
-Code and data folders are added as the experiments start.
+코드와 데이터 폴더는 실험을 시작하면서 추가합니다.
 
-## Status
+## 진행 상황
 
-Week 1 in progress.
+1주차 진행 중.
 
-## License
+## 라이선스
 
 MIT
